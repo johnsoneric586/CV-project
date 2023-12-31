@@ -1,0 +1,768 @@
+:root {
+  /* -----Custom properties----- */
+  /* Colors */
+  --color-black: #000000;
+  --color-dark-blue: #14213d;
+  --color-dark-blue2: #223151;
+  --color-turquoise: #64dfdf;
+  --color-orange: #fca311;
+  --color-gray: #e5e5e5;
+  --color-white: #ffffff;
+
+  /* Fonts */
+  --font-primary: "Space Grotesk", sans-serif;
+  --font-secondary: "Space Mono", monospace;
+
+  /* Spacing */
+  --spacing-sm: 5px;
+  --spacing-md: 10px;
+  --spacing-lg: 15px;
+  --spacing-xl: 25px;
+
+  /* Font sizes */
+  --font-size-sm: 10px;
+  --font-size-md: 14px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+}
+
+/* -----Generic Styles----- */
+html {
+  scroll-behavior: smooth;
+  /* This makes smooth transition when clicking the links to take me to another part of the page */
+  overflow-x: hidden;
+}
+
+body {
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+  font-family: var(--font-primary);
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-areas:
+    "nav nav nav"
+    "main main main"
+    "footer footer footer";
+
+  /* Setting position to relative for the nav::before element to have a reference point */
+  position: relative;
+}
+
+h1 {
+  font-size: calc(var(--font-size-xl) * 2);
+}
+
+h2 {
+  font-size: calc(var(--font-size-lg) * 2);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+}
+
+span {
+  color: var(--color-turquoise);
+  font-family: var(--font-secondary);
+}
+
+a {
+  color: var(--color-orange);
+  font-family: var(--font-secondary);
+  text-decoration: none;
+}
+
+main {
+  grid-area: main;
+}
+
+section {
+  padding: var(--spacing-xl) var(--spacing-xl);
+}
+
+/* End of generic styles */
+
+/* --------------------Navbar-------------------- */
+nav {
+  grid-area: nav;
+  margin: 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+nav .hamburger {
+  height: 15px;
+  width: 30px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  /* display: flex; */
+  /* I'll turn display: flex on at mobile screen sizes. */
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+  display: none;
+}
+
+nav .hamburger:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+/* Adding the X styles when the hamburger element is active (clicked) */
+.hamburger.active .bar:nth-child(1) {
+  transform: rotate(-45deg) translate(-4px, 6px);
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+  transform: rotate(45deg) translate(-3px, -6px);
+}
+
+nav .hamburger .bar {
+  height: 2px;
+  width: 100%;
+  border-radius: 5px;
+  background-color: var(--color-turquoise);
+  transition: all 0.3s ease;
+}
+
+/* Using ::before to create an emblem image without adding more to the markup */
+nav::before {
+  content: "EJ";
+  width: 30px;
+  position: fixed;
+  left: 30px;
+  top: 10px;
+  font-size: var(--font-size-xl);
+  color: turquoise;
+  letter-spacing: var(--spacing-sm);
+  border: 5px solid var(--color-turquoise);
+  padding: var(--spacing-md) var(--spacing-lg);
+  box-shadow: 2px 2px 10px var(--color-turquoise);
+  animation: pulse infinite 2s;
+}
+
+.nav-links {
+  list-style: none;
+  padding: var(--spacing-lg);
+  font-size: var(--font-size-md);
+  border: 1px solid var(--color-turquoise);
+  background-color: var(--color-dark-blue);
+}
+
+.nav-links li {
+  display: inline;
+  margin: 0 var(--spacing-md);
+  border-left: 1px solid var(--color-white);
+  padding: 0 0 0 var(--spacing-lg);
+}
+
+.nav-links li a {
+  display: inline-block;
+  /* Inline-block is the only way I could get the hover affect to work */
+  transition: transform 0.4s ease, padding 0.4s ease, color 0.25s ease;
+}
+
+.nav-links li a:hover {
+  color: var(--color-turquoise);
+  transform: scale(1.1);
+  padding: 0 var(--spacing-md);
+}
+
+/* --------------------Summary section-------------------- */
+.summary {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: calc(var(--spacing-xl) * 4);
+}
+
+.summary-container {
+  width: 60%;
+}
+
+.summary p {
+  font-size: var(--font-size-lg);
+}
+
+.summary h1 {
+  margin: var(--spacing-lg) 0;
+}
+
+.summary-images {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: calc(var(--spacing-xl) * 2) 0 0 0;
+}
+
+.summary img {
+  height: 100px;
+}
+
+/* --------------------About me-------------------- */
+.about-me {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+#profile-pic {
+  height: 200px;
+  border-radius: 50%;
+  position: absolute;
+  left: 250px;
+  top: -80px;
+}
+
+.about-me h2 {
+  display: inline-block;
+  margin-bottom: calc(var(--spacing-xl) * 2);
+}
+
+.my-story-text {
+  width: 70%;
+  line-height: 2;
+}
+
+#projects-link {
+  display: inline-block;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+#projects-link:hover {
+  color: var(--color-turquoise);
+  transform: scale(1.02);
+}
+
+/* --------------------Skills-------------------- */
+.skills {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.skills-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.skills-container h3 {
+  color: var(--color-turquoise);
+}
+
+.skills-container ul {
+  padding: 0;
+  margin: 0 var(--spacing-xl);
+  font-size: var(--font-size-lg);
+  list-style: circle;
+}
+
+.skills-container ul li {
+  margin: var(--spacing-md) 0;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.skills-container ul li:hover {
+  color: var(--color-turquoise);
+  transform: scale(1.1);
+}
+
+/* --------------------Education & Experience-------------------- */
+.education,
+.experience {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.education ul li,
+.experience ul li {
+  margin: var(--spacing-xl) 0;
+  font-size: var(--font-size-lg);
+}
+
+.education-major,
+.job-title {
+  font-size: var(--font-size-xl);
+}
+
+/* --------------------Certifications-------------------- */
+.certifications {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.certifications table {
+  font-size: var(--font-size-lg);
+  text-align: center;
+  border: 1px solid var(--color-dark-blue2);
+  border-radius: 5px;
+  margin-bottom: calc(var(--spacing-xl) * 2);
+  border-collapse: collapse;
+}
+
+.certifications table thead {
+  color: var(--color-turquoise);
+  font-size: var(--font-size-xl);
+}
+
+.certifications table td {
+  border: 4px solid var(--color-dark-blue2);
+  padding: var(--spacing-md);
+  transition: background-color 0.25s ease;
+}
+
+.certifications table td:hover {
+  background-color: rgba(64, 224, 208, 0.5);
+}
+
+.certifications table thead td:hover {
+  background-color: var(--color-dark-blue);
+}
+
+/* --------------------Projects-------------------- */
+.projects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* No projects to add yet. This will be a work in progress. TODO */
+
+/* --------------------Contact me-------------------- */
+.contact-me {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-me form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-input {
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+  border: 1px solid var(--color-turquoise);
+  border-radius: 10px;
+  height: var(--spacing-xl);
+  width: calc(var(--spacing-xl) * 8);
+  padding-left: var(--spacing-sm);
+}
+
+.contact-me form div {
+  margin: var(--spacing-lg);
+}
+
+.contact-me form label {
+  margin: var(--spacing-lg);
+}
+
+.contact-me form select {
+  width: calc(var(--spacing-xl) * 4);
+}
+
+.contact-me .form-fourth-line {
+  text-align: center;
+}
+
+.contact-me .form-radio-inputs,
+label[for="experience"] {
+  font-size: var(--font-size-lg);
+}
+
+.contact-me textarea {
+  height: calc(var(--spacing-xl) * 4);
+  width: calc(var(--spacing-xl) * 20);
+}
+
+.contact-me button {
+  margin: var(--spacing-lg);
+  border-radius: 10px;
+  background-color: var(--color-turquoise);
+  border: 1px solid var(--color-turquoise);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  transition: background-color 0.25s ease, transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.contact-me button:hover {
+  background-color: var(--color-orange);
+  border-color: var(--color-orange);
+  transform: scale(1.05);
+}
+
+/* --------------------Contact info-------------------- */
+div.contact-info {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+}
+
+ul.contact-info-list {
+  font-size: var(--font-size-sm);
+  text-align: center;
+  height: 5vh;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  padding: 0;
+  background-color: var(--color-dark-blue);
+  border: 1px solid var(--color-turquoise);
+}
+
+.contact-info-list img {
+  height: 20px;
+  transition: transform 0.25s ease;
+}
+
+.contact-info-list img:hover {
+  transform: scale(1.1);
+}
+
+ul.contact-info-list li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0 var(--spacing-xl);
+  padding: var(--spacing-sm);
+}
+
+ul.contact-info-list li img {
+  margin: 0 var(--spacing-sm) 0 0;
+}
+
+ul.contact-info-list a {
+  transition: color 0.25s ease, transform 0.25s ease, padding 0.25s ease;
+}
+
+ul.contact-info-list a:hover {
+  color: var(--color-turquoise);
+  transform: scale(1.02);
+  padding: 0 var(--spacing-sm);
+}
+
+/* --------------------Footer-------------------- */
+
+footer {
+  grid-area: footer;
+  padding: var(--spacing-md);
+}
+
+div.attributions {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-sm);
+}
+
+div.attributions a {
+  transition: color 0.25s ease;
+}
+
+div.attributions:hover {
+  color: var(--color-turquoise);
+}
+
+/* -----Animations----- */
+@keyframes pulse {
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* ----------Media Queries---------- */
+
+/* -----Small laptop----- */
+@media only screen and (max-width: 1200px) {
+  #profile-pic {
+    height: 125px;
+    top: 0;
+    left: 200px;
+  }
+}
+
+/* -----Tablet----- */
+@media only screen and (max-width: 1024px) {
+  /* Navbar */
+  nav ul {
+    font-size: var(--font-size-sm);
+  }
+
+  nav::before {
+    height: 20px;
+    width: 20px;
+    font-size: var(--font-size-lg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Summary */
+  .summary {
+    padding-top: calc(var(--spacing-xl) * 3);
+  }
+  .summary-images {
+    margin: var(--spacing-xl) 0 0 0;
+  }
+
+  .summary-images img {
+    height: 75px;
+  }
+
+  /* Skills */
+  .skills-container ul {
+    font-size: var(--font-size-md);
+  }
+
+  /* Education */
+  .education-major {
+    font-size: var(--font-size-lg);
+  }
+  .education ul li {
+    font-size: var(--font-size-md);
+  }
+
+  /* Experience */
+  .experience .job-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .experience ul li {
+    margin: var(--spacing-lg) 0;
+    font-size: var(--font-size-md);
+  }
+
+  /* Certifications */
+  .certifications table thead {
+    font-size: var(--font-size-lg);
+  }
+
+  .certifications table {
+    font-size: var(--font-size-md);
+  }
+}
+
+/* -----Medium Tablet----- */
+/* Nav */
+@media only screen and (max-width: 900px) {
+  .nav-links {
+    border: none;
+    border-radius: 10px;
+    font-size: var(--font-size-sm);
+    position: absolute;
+    width: 100px;
+    right: 0;
+    top: 50px;
+    padding-right: 0;
+    margin: 0;
+    transform: translateX(100px); /* Initial position off-screen */
+    transition: transform 0.3s ease;
+  }
+
+  .nav-links li {
+    border-left: none;
+    width: 100%;
+    border-bottom: 1px solid var(--color-dark-blue2);
+    padding: var(--spacing-md) 0;
+    display: inline-block;
+    margin: 0 auto;
+  }
+
+  .nav-links.show {
+    transform: translateX(0);
+  }
+
+  nav .hamburger {
+    display: flex;
+  }
+
+  nav::before {
+    height: 15px;
+    width: 15px;
+    font-size: var(--font-size-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 15px;
+    border: 3px solid var(--color-turquoise);
+  }
+
+  /* About-me */
+  #profile-pic {
+    left: 150px;
+  }
+}
+
+/* -----Small Tablet----- */
+@media only screen and (max-width: 768px) {
+  /* TODO NEED TO FOCUS ON SMALLER FONT SIZES IN MAIN AND LESS PADDING */
+  #profile-pic {
+    left: 100px;
+  }
+}
+
+/* -----Mobile----- */
+@media only screen and (max-width: 650px) {
+  h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  h3 {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Summary Section */
+
+  .summary {
+    height: 500px;
+  }
+
+  .summary-container {
+    width: 95%;
+  }
+
+  .summary-container h1 {
+    font-size: var(--font-size-xl);
+  }
+
+  .summary-container p {
+    font-size: var(--font-size-lg);
+  }
+
+  .summary-container img {
+    height: 50px;
+  }
+
+  /* About me */
+
+  #profile-pic {
+    height: 100px;
+  }
+
+  .my-story-text {
+    width: 90%;
+    font-size: var(--font-size-md);
+  }
+
+  /* Skills */
+
+  .skills-container ul {
+    font-size: calc(var(--font-size-sm) * 1);
+  }
+
+  /* Certifications */
+  .certifications table thead {
+    font-size: var(--font-size-md);
+  }
+
+  .certifications table {
+    font-size: var(--font-size-sm);
+  }
+
+  /* Contact me form */
+  .contact-me {
+    padding: 0;
+  }
+
+  .contact-me form {
+    font-size: var(--font-size-md);
+  }
+
+  .form-input {
+    height: var(--spacing-md);
+    width: calc(var(--spacing-xl) * 4);
+    font-size: var(--font-size-sm);
+  }
+
+  select.form-input {
+    height: var(--spacing-lg);
+  }
+
+  .contact-me .form-radio-inputs,
+  label[for="experience"] {
+    font-size: calc(var(--font-size-md) + 2px);
+  }
+
+  .contact-me textarea {
+    width: calc(var(--spacing-xl) * 12);
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .about-me {
+    padding-top: calc(var(--spacing-xl) * 4);
+  }
+
+  #profile-pic {
+    height: 75px;
+    top: 100px;
+    left: 25px;
+  }
+
+  /* Education */
+  .education-major,
+  .experience .job-title {
+    font-size: var(--font-size-md);
+  }
+
+  /* Contact me form */
+  .form-input {
+    width: calc(var(--spacing-xl) * 3);
+  }
+
+  .contact-me .form-first-line,
+  .contact-me .form-second-line {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+  }
+
+  /* Trying to get the input element to not get cutt off horizontally */
+  .contact-me .form-second-line label {
+    margin: var(--spacing-sm);
+  }
+
+  /* Making radio button label text smaller */
+  .contact-me .form-radio-inputs {
+    font-size: var(--font-size-md);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Contact Info Section */
+  ul.contact-info-list li {
+    padding: var(--spacing-sm) 0;
+  }
+
+  /* Making the two links have less margin so the phone number fits on one line */
+  ul.contact-info-list li:nth-of-type(3),
+  ul.contact-info-list li:nth-of-type(4) {
+    margin: 0 var(--spacing-sm);
+  }
+
+  /* Footer */
+  /* Making the footer taller so the link can be seen */
+  footer {
+    text-align: center;
+    height: 10vh;
+    padding: 0;
+  }
+
+  div.attributions {
+    padding: 0;
+  }
+}
